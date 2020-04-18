@@ -1,0 +1,14 @@
+'''
+Created on Apr 14, 2020
+
+@author: yccha
+'''
+from zone.app.ZoneInitializer import ZoneInitializer
+
+if __name__ == '__main__':
+    zone1 = ZoneInitializer('testZone1')
+    zone2 = ZoneInitializer('testZone3')
+    zone1.initialize()
+    zone1.readSensorData()
+    zone1.subscribeToActuatorData()
+    

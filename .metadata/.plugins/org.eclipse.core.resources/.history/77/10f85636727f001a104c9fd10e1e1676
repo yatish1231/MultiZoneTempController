@@ -1,0 +1,96 @@
+'''
+Created on Feb 28, 2020
+
+@author: yccha
+'''
+from threading import Thread
+import paho.mqtt.client as paho
+from zone.util.TempSensorEmulatorTask import TempSensorEmulatorTask
+from zone.common.SensorData import SensorData
+from zone.util.DataUtil import DataUtil
+from time import sleep
+from zone.adaptors.MultiActuatorAdaptor import MultiActuatorAdaptor 
+import logging
+class MqttClientConnector(Thread):
+    '''
+    This class can be used to create an instance of Mqtt Client and make Publish and Subscriber requests.
+    '''
+    act_data = None
+    def __init__(self,name):
+        super(MqttClientConnector,self).__init__()
+        self.client = paho.Client(name)
+        self.client.on_publish = self.on_publish
+        self.task = TempSensorEmulatorTask()
+        self.util = DataUtil()
+        self.sen_Data = SensorData()
+        self.res = None
+        pass
+    
+    def connect(self, broker, port):
+        '''
+        Connects to the client to the broker at the given port
+        '''
+        logging.info('connecting to broker...')
+        self.client.connect(broker, port)
+        
+        
+    def on_publish(self, client, userdata, result):
+        '''
+        This is an implementation of callback method - on_publish
+        '''
+        self.res = result
+        print('published message\nClient'+ client +'result: '+ str(result))
+    
+    def publish_message(self, topic, message):
+        '''
+        publishes the message on the given topic
+        '''
+        self.client.publish(topic, message, 2)
+        
+    def run(self):
+        while True:
+            self.sen_Data.SetName('temperature')
+            self.sen_Data.addValue(self.task.randomValue())
+            val = self.util.JsonFromSensorData(self.sen_Data)
+            self.publish_message('data/constrained/testZone1', val)
+            logging.info('published message' + val)
+            sleep(60)
+            
+    
+    def publishActuatorCommand(self, act_data, qos):
+        pass
+    
+    def publishSensorData(self, sen_data, qos):
+        
+        pass
+    
+    def on_message(self,client, userdata, message):
+        logging.info('Actuator data recieved')
+        act_data_json = str(message.payload.decode('utf-8'))
+        self.act_data = self.util.ActuatorDataFromJson(act_data_json)
+        MultiActuatorAdaptor().updateActuator(self.act_data)
+        logging.info('Actuator updated\n')
+        
+    def on_subscribe(self,client, userdata, mid, granted_qos):
+        logging.info('subscribed')
+      
+    def subscribeToActuatorCommands(self, topic, qos):
+        self.client.on_message = self.on_message
+        self.client.on_subscribe = self.on_subscribe
+        self.client.subscribe(topic, qos)
+        while self.act_data == None:
+            self.client.loop()
+        pass
+    
+    def subscribeToSensorMessages(self, sen_data, sen_lis):
+        pass
+    
+    def messageReceived(self, msg):
+        pass
+    
+    def registerActuatorDataListener(self, act_lis):
+        pass
+    
+    def registerSensorDataListener(self, sen_lis):
+        pass
+    

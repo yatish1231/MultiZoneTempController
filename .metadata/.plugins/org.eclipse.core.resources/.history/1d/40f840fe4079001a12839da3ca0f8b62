@@ -1,0 +1,44 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.service;
+
+import com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.AWSIoTMqttClientSecure;
+import com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.ConstrainedMqttCallback;
+import com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.MqttClientConnector;
+import com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.MqttClientSubscriber;
+import com.ypitta.MultiZoneClimateControl.gateway_device.common.ConfigUtil;
+
+public class GatewaySubscriberGenerator {
+	
+	private String zoneId;
+	
+	private AWSIoTMqttClientSecure aws_pub;
+	
+	private String endpoint;
+	
+	private String certificateFile;
+	
+	private String privateKeyFile;
+	
+	private MqttClientSubscriber sub_constrained;
+	
+	private ConfigUtil util;
+
+	public GatewaySubscriberGenerator(String zoneId) {
+		super();
+		this.zoneId = zoneId;
+	}
+	
+	private void instantiate() {
+		
+		this.endpoint = this.util.getValue("aws.cloud", "endpoint");
+		this.certificateFile = this.util.getValue("aws.cloud", "certificateFile");
+		this.privateKeyFile = this.util.getValue("aws.cloud", "privateKeyFile");
+		
+		this.aws_pub = new AWSIoTMqttClientSecure(this.endpoint, this.zoneId+"AwsPub", this.certificateFile, this.privateKeyFile);
+		
+		MqttClientConnector conn = new MqttClientConnector(this.zoneId+"constrainedSub", this.util.getValue("mqtt.cloud", "host"));
+		conn.ConnectMqttClientSetCallBack(new ConstrainedMqttCallback(this.aws_pub));
+		this.sub_constrained = new MqttClientSubscriber(conn.getClient(), "data/constrained/"+this.zoneId, Integer.valueOf(this.util.getValue("mqtt.cloud", "defaultQos")));
+		
+	}
+	
+}

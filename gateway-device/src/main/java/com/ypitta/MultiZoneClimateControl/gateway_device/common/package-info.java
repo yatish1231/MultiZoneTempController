@@ -1,0 +1,1 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;

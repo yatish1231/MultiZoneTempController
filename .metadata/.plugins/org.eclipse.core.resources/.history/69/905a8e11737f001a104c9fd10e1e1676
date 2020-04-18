@@ -1,0 +1,20 @@
+'''
+Created on Apr 14, 2020
+
+@author: yccha
+'''
+
+class ZoneInitializer():
+    '''
+    classdocs
+    '''
+    
+    zoneid = None
+    publisher = None
+    subscriber= None
+    
+
+    def __init__(self, zoneId): 
+       self.zoneid = zoneId
+       
+        

@@ -1,0 +1,77 @@
+'''
+Created on Jan 29, 2020
+
+@author: yccha
+'''
+import configparser
+
+class ConfigUtil():
+    '''
+    This class is to parse configuration files
+    loadconfig() method loads the configuration file into a local variable
+    getValue() method takes in section, key parameters and returns the value
+    Class ConfigConst() has valid sections and keys as constants
+    '''
+    def __init__(self, path='../config/ConnectedDevicesConfig.props'):
+        
+        self.path = path
+        self.loadConfig(fileName=path)
+    
+    def loadConfig(self,fileName):
+    
+        self.config = configparser.ConfigParser()
+        try :
+            self.config.read(fileName)
+            return True
+        except:
+            print('Error in loading config file')
+            return False
+        
+    def hasConfig(self):
+        try:
+            self.config.get(ConfigConst.SMTP_CONF, ConfigConst.SMTP_ENABLE_AUTH)
+            return True
+        except:
+            return False
+        
+    def getValue(self,section,key):
+        try:
+            return self.config[section][key]
+        except:
+            print('Error in getting value')
+            return False
+        
+    def hasSection(self, section):
+        return self.config.has_section(section)
+    
+    def hasProperty(self, section, key):
+        return self.config.has_option(section, key)
+    
+class ConfigConst():
+    
+    
+    MQTT_CONF = 'mqtt.cloud'
+    MQTT_HOST = 'host'
+    MQTT_QOS = 'defaultQos'
+    MQTT_PORT = 'port'
+    SMTP_CONF = 'smtp.cloud'
+    SMTP_HOST = 'host'
+    SMTP_PORT = 'port'
+    SMTP_FROM_ADDR = 'fromAddr'
+    SMTP_TO_ADDR = 'toAddr'
+    SMTP_MEDIA_ADDR = 'toMediaAddr'
+    SMTP_TEXT_ADDR = 'toTxtAddr'
+    SMTP_AUTH_TOKEN = 'authToken'
+    SMTP_ENABLE_AUTH = 'enableAuth'
+    SMTP_ENABLE_CRYPT = 'enableCrypt'    
+        
+if __name__=='__main__':
+    
+    obj = ConfigUtil()
+    print(obj.getValue('smtp.cloud', 'port'))
+    
+    
+    
+    
+    
+    

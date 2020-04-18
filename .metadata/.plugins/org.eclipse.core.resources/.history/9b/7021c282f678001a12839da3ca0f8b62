@@ -1,0 +1,5 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient;
+
+public class AWSTopicSubscriber {
+
+}

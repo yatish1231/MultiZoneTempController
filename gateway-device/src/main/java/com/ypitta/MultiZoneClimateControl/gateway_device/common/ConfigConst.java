@@ -1,0 +1,17 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+/*
+ * Class ConfigConst() has valid sections and keys as constants 
+ */
+public class ConfigConst {
+
+	public static final String SMTP_CONF = "smtp.cloud";
+	public static final String SMTP_HOST = "host";
+	public static final String SMTP_PORT = "port";
+	public static final String SMTP_FROM_ADDR = "fromAddr";
+	public static final String SMTP_TO_ADDR = "toAddr";
+	public static final String SMTP_MEDIA_ADDR = "toMediaAddr";
+	public static final String SMTP_TEXT_ADDR = "toTxtAddr";
+	public static final String SMTP_AUTH_TOKEN = "authToken";
+	public static final String SMTP_ENABLE_AUTH = "enableAuth";
+	public static final String SMTP_ENABLE_CRYPT = "enableCrypt";
+}

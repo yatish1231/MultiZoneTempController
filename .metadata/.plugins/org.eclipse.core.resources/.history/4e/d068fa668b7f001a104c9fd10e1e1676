@@ -1,0 +1,21 @@
+'''
+Created on Apr 14, 2020
+
+@author: yccha
+'''
+from zone.app.ZoneInitializer import ZoneInitializer
+from threading import Thread
+
+if __name__ == '__main__':
+    zone1 = ZoneInitializer('testZone1')
+    zone2 = ZoneInitializer('testZone3')
+    zone1.initialize()
+    zone2.initialize()
+    
+    t2 = Thread(target= ZoneInitializer.readSensorData, args=(zone1,))
+    t2.start()
+    zone1.subscribeToActuatorData()
+    
+    t3 = Thread(target= ZoneInitializer.readSensorData, args=(zone1,))
+    t3.start()
+    

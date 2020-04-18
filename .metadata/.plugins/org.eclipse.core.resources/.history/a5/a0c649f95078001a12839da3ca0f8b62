@@ -1,0 +1,39 @@
+/**
+ * 
+ */
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+import java.security.KeyStore;
+/**
+ * @author yccha
+ *
+ */
+public class KeyStorePasswordPair {
+	
+	private KeyStore keystore;
+	
+	private String password;
+
+	public KeyStore getKeystore() {
+		return keystore;
+	}
+
+	public KeyStorePasswordPair(KeyStore keystore, String password) {
+		super();
+		this.keystore = keystore;
+		this.password = password;
+	}
+
+	public void setKeystore(KeyStore keystore) {
+		this.keystore = keystore;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+}

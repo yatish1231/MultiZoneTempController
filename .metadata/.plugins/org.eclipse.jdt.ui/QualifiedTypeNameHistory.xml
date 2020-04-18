@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.security.PrivateKey"/>
+<fullyQualifiedTypeName name="java.security.cert.Certificate"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.security.KeyStore"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.KeyStorePasswordPair"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.TestAwsIoT"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.iot.client.AWSIotTopic"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.iot.client.AWSIotMessage"/>
+<fullyQualifiedTypeName name="org.eclipse.paho.client.mqttv3.MqttClient"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.SampleUtil.KeyStorePasswordPair"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.SampleUtil"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="org.eclipse.paho.client.mqttv3.MqttCallback"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.iot.client.AWSIotMqttClient"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.callBack.AWSTopicCallBack"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.AWSIoTMqttClientSecure"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.MqttClientConnector"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.ConstrainedMqttCallback"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.MqttClientSubscriber"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.AWSTopicSubscriber"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.service.AWSSubscriberGenerator"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.service.GatewaySubscriberGenerator"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.AWSActuatorData"/>
+<fullyQualifiedTypeName name="neu.ypitta.connecteddevices.common.ActuatorData"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.ActuatorData"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.DataUtil"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.SensorData"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.AWSSensorData"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.callBack.AWSIoTMessageImpl"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.Zone"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.iot.client.AWSIotQos"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="com.ypitta.MultiZoneClimateControl.gateway_device.common.ConfigUtil"/>
+<fullyQualifiedTypeName name="com.amazonaws.services.iot.client.AWSIotException"/>
+</qualifiedTypeNameHistroy>

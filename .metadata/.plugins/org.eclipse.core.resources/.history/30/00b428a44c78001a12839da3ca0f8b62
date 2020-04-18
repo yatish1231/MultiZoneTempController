@@ -1,0 +1,10 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+public class TestAwsIoT {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

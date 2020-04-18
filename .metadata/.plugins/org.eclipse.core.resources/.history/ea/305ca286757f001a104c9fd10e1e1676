@@ -1,0 +1,42 @@
+'''
+Created on Feb 7, 2020
+
+@author: yccha
+'''
+import logging
+import traceback
+
+from zone.common.ActuatorData import ActuatorData
+# from sense_hat import SenseHat
+
+
+class MultiActuatorAdaptor():
+    '''
+    MultiActuatorAdaptor class is responsible for sending actuation signal to the actuator. 
+    .
+    '''
+    data = ActuatorData
+    sense = SenseHat()
+    text = (255,255,0)
+    back = (0,0,255)
+    
+    def __init__(self):
+        '''
+        constructor. Initializes logger
+        '''
+        logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+    
+    def updateActuator(self, data_input):
+        '''
+        updateActuator method takes in SensorData object and sends the data to the actuator for actuation
+        '''
+        try:
+            self.data = data_input
+        
+            self.sense.show_message('Current Humidity is: '+str(self.data.getValue())+ ' Action taken ' + self.data.getCommand(), text_colour=self.text, back_colour=self.back, scroll_speed=0.085)
+            logging.info('\nCurrent Humidity is: '+str(self.data.getValue())+ ' Action taken ' + self.data.getCommand())
+            return True
+        
+        except Exception:
+            logging.info(traceback.print_exc())
+            return False

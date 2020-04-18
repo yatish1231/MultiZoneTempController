@@ -1,0 +1,37 @@
+'''
+Created on Apr 14, 2020
+
+@author: yccha
+'''
+from zone.adaptors.MqttClientConnector import MqttClientConnector
+from builtins import None
+from zone.util.ConfigUtil import ConfigUtil, ConfigConst
+
+class ZoneInitializer():
+    '''
+    classdocs
+    '''
+    
+    zoneid = None
+    publisher = None
+    subscriber= None
+    mqtt_broker = None
+    mqtt_qos = None
+    mqtt_port = None
+    config_util = None
+
+    def __init__(self, zoneId): 
+        
+        self.zoneid = zoneId
+        self.config_util = ConfigUtil()
+        self.mqtt_broker = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_HOST)
+        self.mqtt_port = self.config_util.getValue(ConfigConst.MQTT_CONF,ConfigConst.MQTT_PORT)
+        self.mqtt_qos = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)
+        
+       
+    def initialize(self):
+        
+        self.publisher = MqttClientConnector(self.zoneid+'_publisher')
+        
+        
+        

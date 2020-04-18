@@ -1,0 +1,17 @@
+'''
+Created on Apr 14, 2020
+
+@author: yccha
+'''
+
+class ZoneInitializer():
+    '''
+    classdocs
+    '''
+
+
+    def __init__(self, params):
+        '''
+        Constructor
+        '''
+        

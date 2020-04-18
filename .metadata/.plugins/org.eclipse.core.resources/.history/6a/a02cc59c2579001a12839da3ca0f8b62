@@ -1,0 +1,27 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.callBack;
+
+import com.amazonaws.services.iot.client.AWSIotMessage;
+import com.amazonaws.services.iot.client.AWSIotQos;
+import com.amazonaws.services.iot.client.AWSIotTopic;
+
+public class AWSTopicCallBack extends AWSIotTopic{
+
+	public AWSTopicCallBack(String topic) {
+		super(topic);
+		// TODO Auto-generated constructor stub
+	}
+
+	public AWSTopicCallBack(String topic, AWSIotQos qos) {
+		super(topic, qos);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void onMessage(AWSIotMessage message) {
+		// TODO Auto-generated method stub
+		super.onMessage(message);
+	}
+	
+	
+	
+}

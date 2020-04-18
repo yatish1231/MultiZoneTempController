@@ -1,0 +1,32 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+public class AWSActuatorData {
+	
+	private String mode;
+	
+	private String action;
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public AWSActuatorData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+}

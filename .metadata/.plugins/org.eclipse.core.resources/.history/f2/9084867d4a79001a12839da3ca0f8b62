@@ -1,0 +1,38 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+public class AWSSensorData {
+	
+	private String zoneId;
+	
+	private double temp;
+
+	public AWSSensorData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public AWSSensorData(String zoneId, double temp) {
+		super();
+		this.zoneId = zoneId;
+		this.temp = temp;
+	}
+
+	public String getZoneId() {
+		return zoneId;
+	}
+
+	public void setZoneId(String zoneId) {
+		this.zoneId = zoneId;
+	}
+
+	public double getTemp() {
+		return temp;
+	}
+
+	public void setTemp(double temp) {
+		this.temp = temp;
+	}
+	
+	
+	
+}

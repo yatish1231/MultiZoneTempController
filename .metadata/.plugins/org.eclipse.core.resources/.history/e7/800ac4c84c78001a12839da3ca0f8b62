@@ -1,0 +1,21 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+public class TestAwsIoT {
+	
+	
+	public void start(){
+	String clientEndpoint = "a2k03cghbd2dw4-ats.iot.us-east-1.amazonaws.com";       // replace <prefix> and <region> with your own
+	String clientId = "<unique client id>";                              // replace with your own client ID. Use unique client IDs for concurrent connections.
+	String certificateFile = "<certificate file>";                       // X.509 based certificate file
+	String privateKeyFile = "<private key file>";                        // PKCS#1 or PKCS#8 PEM encoded private key file
+	KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(certificateFile, privateKeyFile);
+	AWSIotMqttClient client = new AWSIotMqttClient(clientEndpoint, clientId, pair.keyStore, pair.keyPassword);
+	
+	
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

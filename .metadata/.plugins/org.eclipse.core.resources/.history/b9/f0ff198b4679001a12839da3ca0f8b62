@@ -1,0 +1,47 @@
+package com.ypitta.MultiZoneClimateControl.gateway_device.callBack;
+
+import java.util.logging.Logger;
+
+import com.amazonaws.services.iot.client.AWSIotMessage;
+import com.amazonaws.services.iot.client.AWSIotQos;
+import com.amazonaws.services.iot.client.AWSIotTopic;
+import com.ypitta.MultiZoneClimateControl.gateway_device.MqttClient.MqttClientConnector;
+import com.ypitta.MultiZoneClimateControl.gateway_device.common.AWSActuatorData;
+import com.ypitta.MultiZoneClimateControl.gateway_device.common.DataUtil;
+
+public class AWSTopicCallBack extends AWSIotTopic{
+	
+	private MqttClientConnector publisher;
+	
+	private DataUtil util;
+	
+	private String topic_publisher;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	public AWSTopicCallBack(String topic, AWSIotQos qos, MqttClientConnector publisher,String pub_topic) {
+		super(topic, qos);
+		this.publisher = publisher;
+		this.topic_publisher = pub_topic;
+		this.util = new DataUtil();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void onMessage(AWSIotMessage message) {
+		// TODO Auto-generated method stub
+		String payload = new String(message.getPayload());
+		AWSActuatorData data = this.util.toAWSActuatorDatafromJson(payload);
+		
+	}
+	
+	public MqttClientConnector getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(MqttClientConnector publisher) {
+		this.publisher = publisher;
+	}
+
+	
+}

@@ -1,0 +1,19 @@
+'''
+Created on Jan 29, 2020
+
+@author: yccha
+'''
+import logging
+from random import random
+
+class TempSensorEmulatorTask():
+    '''
+    Class TempsensorEmulatorTask() emulates a temperature sensor. It generates random values between 0-30
+    '''
+    def __init__(self):
+        logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+        
+
+    def randomValue(self):
+        
+        return random.randint(18,25)+ random.randint(-5,5) + random()*(2)

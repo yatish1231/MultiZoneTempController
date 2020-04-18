@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.ypitta.MultiZoneClimateControl.gateway_device.common;
+
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.util.List;
+/**
+ * @author yccha
+ *
+ */
+public class KeyStorePasswordPair {
+	
+	private List<Certificate> keystore;
+	
+	private PrivateKey privatekey;
+}
