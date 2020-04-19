@@ -28,7 +28,7 @@ public class MqttClientSubscriber implements Runnable{
 			if(!this.connectedClient.isConnected()) {
 				this.connectedClient.connect();
 			}	
-			LOGGER.info("\nSubscribing client" + this.connectedClient.getClientId()+ "on topic...." + topic);
+			LOGGER.info("\tSubscribing client" + this.connectedClient.getClientId()+ "on topic...." + topic);
 			this.connectedClient.subscribe(topic, qos);
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block

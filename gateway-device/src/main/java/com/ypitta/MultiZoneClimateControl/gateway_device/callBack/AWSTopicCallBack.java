@@ -48,7 +48,7 @@ public class AWSTopicCallBack extends AWSIotTopic{
 		
 		try {
 		String payload = new String(message.getPayload());
-		LOGGER.info("\nRecieved message from AWS....\nmessage " + payload);
+		LOGGER.info("\tRecieved message from AWS....message " + payload);
 		AWSActuatorData data = this.util.toAWSActuatorDatafromJson(payload);
 		ActuatorData new_data = new ActuatorData();
 		new_data.setCommand(data.getAction());
@@ -58,10 +58,10 @@ public class AWSTopicCallBack extends AWSIotTopic{
 		
 		//sending actuation to constrained device
 		if(!this.publisher.getClient().isConnected()) {
-			LOGGER.info("\nConnecting to Mqtt client for published to constriained device....");
+			LOGGER.info("\tConnecting to Mqtt client for published to constriained device....");
 			this.publisher.connectMqttClient();
 		}
-		LOGGER.info("\nPublishing to topic...."+this.topic_publisher+"\nmessage"+msg);
+		LOGGER.info("\tPublishing to topic...."+this.topic_publisher+"\tmessage"+msg);
 		this.publisher.getClient().publish(this.topic_publisher, msg.getBytes(), this.qos, false);
 		
 		//Sending email
@@ -69,7 +69,7 @@ public class AWSTopicCallBack extends AWSIotTopic{
 		email_msg.append("Time: "+ LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).toString());
 		email_msg.append("\nHVAC system:" + data.getMode());
 		email_msg.append("\nAction: "+ data.getAction());
-		LOGGER.info("\nSending email now....");
+		LOGGER.info("\tSending email now....");
 		this.smtp_client.publishMessage("Actuation detected" ,email_msg.toString());
 		
 		} catch (MqttPersistenceException e) {

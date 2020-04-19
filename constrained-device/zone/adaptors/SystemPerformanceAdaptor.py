@@ -1,10 +1,9 @@
 import logging
 from threading import Thread
 from time import sleep
-import time
 
-from labs.module01.SystemCpuUtilTask import SystemCpuUtilTask
-from labs.module01.SystemMemUtilTask import SystemMemUtilTask
+from zone.util.SystemCpuUtilTask import SystemCpuUtilTask
+from zone.util.SystemMemUtilTask import SystemMemUtilTask
 
 
 class SystemPerformanceAdaptor(Thread):
@@ -28,3 +27,13 @@ class SystemPerformanceAdaptor(Thread):
                 logging.info('The memory Utilization is ' + str(memUtil) + ' percent ')
                                 
             sleep(self.rateInSec)
+        
+    def getCpuUtil(self):
+        cpuUtilVal = self.cpuUtilObj.getDataFromSensor()
+        logging.info('The CPU Utilization is ' + str(cpuUtilVal))
+        return cpuUtilVal
+    
+    def getMemUtil(self):
+        memUtilVal = self.memUtilObj.getDataFromSensor()
+        logging.info('The memory Utilization is ' + str(memUtilVal) + ' percent ')
+        return memUtilVal

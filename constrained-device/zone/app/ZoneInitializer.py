@@ -11,7 +11,8 @@ from zone.util.DataUtil import DataUtil
 import logging
 from time import sleep
 from threading import Thread
-
+from zone.adaptors.SystemPerformanceAdaptor import SystemPerformanceAdaptor
+from zone.common.PerformanceData import PerformanceData
 class ZoneInitializer():
     '''
     This class can be used to instantiate the Mqtt connectors for subscribing and publishing to Mqtt topics.
@@ -35,6 +36,7 @@ class ZoneInitializer():
         self.mqtt_broker = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_HOST)
         self.mqtt_port = self.config_util.getValue(ConfigConst.MQTT_CONF,ConfigConst.MQTT_PORT)
         self.mqtt_qos = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)
+        self.perfAdaptor = SystemPerformanceAdaptor(10, True)
         
        
     def initialize(self):
@@ -69,10 +71,26 @@ class ZoneInitializer():
         t1 = Thread(target = MqttClientConnector.subscribeToActuatorCommands, args=(self.subscriber,'action/gateway/'+self.zoneid, int(self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)), ))
         t1.start()
         
-        
+    
+    def sendPerformanceData(self):
+        sleep(30)
+        while(True):
+            cpu = self.perfAdaptor.getCpuUtil()
+            mem = self.perfAdaptor.getMemUtil()
+            data = PerformanceData()
+            data.setCpuUtil(cpu)
+            data.setMemUtil(mem)
+            msg = self.util.JsonFromPerformanceData(data)
+            logging.info('Publishing performace data to topic: ' + 'system/performance/'+self.zoneid + 'Performance data'+msg)
+            self.publisher.publish_message('system/performance/'+self.zoneid, msg, int(self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)))
+            sleep(300)
+        pass
+    
     def startReading(self):
         '''
         Call to start reading sensor data - loop every 60 seconds
         '''
         t2 = Thread(target= ZoneInitializer.readSensorData, args=(self,))
         t2.start()
+        t3 = Thread(target= ZoneInitializer.sendPerformanceData, args=(self,))
+        t3.start()

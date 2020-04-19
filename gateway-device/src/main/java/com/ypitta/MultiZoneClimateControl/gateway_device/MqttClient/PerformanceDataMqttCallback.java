@@ -12,9 +12,9 @@ import com.amazonaws.services.iot.client.AWSIotQos;
 import com.ypitta.MultiZoneClimateControl.gateway_device.callBack.AWSIoTMessageImpl;
 import com.ypitta.MultiZoneClimateControl.gateway_device.common.AWSSensorData;
 import com.ypitta.MultiZoneClimateControl.gateway_device.common.DataUtil;
-
-public class ConstrainedMqttCallback implements MqttCallback{
-
+import com.ypitta.MultiZoneClimateControl.gateway_device.common.PerformanceData;
+public class PerformanceDataMqttCallback implements MqttCallback{
+	
 	private AWSIoTMqttClientSecure publisher;
 	
 	private String publisher_topic;
@@ -23,12 +23,13 @@ public class ConstrainedMqttCallback implements MqttCallback{
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public ConstrainedMqttCallback(AWSIoTMqttClientSecure publisher, String pub_topic) {
+	public PerformanceDataMqttCallback(AWSIoTMqttClientSecure publisher, String pub_topic) {
 		super();
 		this.publisher = publisher;
 		this.publisher_topic = pub_topic;
 		this.util = new DataUtil();
 	}
+	
 
 	@Override
 	public void connectionLost(Throwable cause) {
@@ -40,15 +41,12 @@ public class ConstrainedMqttCallback implements MqttCallback{
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		
 		String arrived = new String(message.getPayload());
-		LOGGER.info("\tMqtt message arrived from: "+ topic+"\tmessage: "+ arrived);
-		SensorData data = this.util.toSensorDataFromJsonFile(arrived);
-		AWSSensorData new_data = new AWSSensorData(data.getCurValue());
-		new_data.setTimestamp(LocalDateTime.now());
-		String payload = this.util.toJsonfromAWSSensorData(new_data);
-		AWSIoTMessageImpl iot_msg = new AWSIoTMessageImpl(this.publisher_topic, AWSIotQos.QOS0, payload);
-		LOGGER.info("\tPublishing to AWS MQTT on topic..."+ iot_msg.getTopic() + "\tMessage : "+ iot_msg.getStringPayload());
+		LOGGER.info("\tPerformance data message arrived from: "+ topic+"\tmessage: "+ arrived);
+		PerformanceData data = this.util.toPerformanceDataFromJson(arrived);
+		LOGGER.info("\tPerformance data - Cpu Utilization: "+ data.getCpu() + " Memory Utilization :" + data.getMemory());
+		AWSIoTMessageImpl iot_msg = new AWSIoTMessageImpl(this.publisher_topic, AWSIotQos.QOS0, arrived);
+		LOGGER.info("\tPublishing performance data to AWS MQTT on topic..."+ iot_msg.getTopic() + "\tMessage : "+ iot_msg.getStringPayload());
 		try {
-			
 			this.publisher.getClientInstance().publish(iot_msg,1000);
 			
 		}catch(AWSIotException e) {
@@ -63,3 +61,4 @@ public class ConstrainedMqttCallback implements MqttCallback{
 	}
 
 }
+

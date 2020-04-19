@@ -58,7 +58,7 @@ public class SmtpClientConnector {
 			Transport trans = session.getTransport("smtp");
 			trans.connect(this.host, this.fromAddr, this.authToken);
 			trans.sendMessage(message, message.getAllRecipients());
-			Logger.getGlobal().info("\nMail Successfully sent");
+			Logger.getGlobal().info("\tMail Successfully sent");
 			trans.close();
 			return true;
 			}

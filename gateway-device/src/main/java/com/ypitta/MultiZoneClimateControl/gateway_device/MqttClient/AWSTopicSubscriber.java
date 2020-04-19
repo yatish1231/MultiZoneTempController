@@ -22,7 +22,7 @@ public class AWSTopicSubscriber implements Runnable{
 	public void subscribeToAWSTopic() {
 		if(secureClient != null && topic != null) {
 			try {
-				LOGGER.info("\nSubscribing client: "+ this.secureClient.getClientInstance().getClientId() + "on topic..."+ this.topic.getTopic());
+				LOGGER.info("\tSubscribing client: "+ this.secureClient.getClientInstance().getClientId() + "on topic..."+ this.topic.getTopic());
 				this.secureClient.getClientInstance().subscribe(this.topic);
 			} catch (AWSIotException e) {
 				// TODO Auto-generated catch block

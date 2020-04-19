@@ -51,6 +51,14 @@ public class DataUtil {
 		return this.conv.toJson(act);
 	}
 	
+	public String JsonFromPerformanceData(PerformanceData data) {
+		return this.conv.toJson(data);
+	}
+	
+	public PerformanceData toPerformanceDataFromJson(String data) {
+		return this.conv.fromJson(data, PerformanceData.class);
+	}
+	
 	public class UbidotsData{
 		
 		private String timestamp;

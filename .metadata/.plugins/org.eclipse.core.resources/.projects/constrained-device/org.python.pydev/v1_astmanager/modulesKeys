@@ -11,6 +11,7 @@ zone.app.ZoneInitializer|C:\Users\yccha\workspace-IoT-Semester-Project\constrain
 zone.app.ZoneManager|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\app\ZoneManager.py
 zone.app.__init__|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\app\__init__.py
 zone.common.ActuatorData|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\common\ActuatorData.py
+zone.common.PerformanceData|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\common\PerformanceData.py
 zone.common.SensorData|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\common\SensorData.py
 zone.common.__init__|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\common\__init__.py
 zone.util.ConfigUtil|C:\Users\yccha\workspace-IoT-Semester-Project\constrained-device\zone\util\ConfigUtil.py

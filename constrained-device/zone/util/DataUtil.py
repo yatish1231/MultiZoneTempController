@@ -58,4 +58,6 @@ class DataUtil():
         actuator_data.curValue = data['curValue']
         return actuator_data
     
-       
+    def JsonFromPerformanceData(self,data):
+        x= vars(data)
+        return json.dumps(x)

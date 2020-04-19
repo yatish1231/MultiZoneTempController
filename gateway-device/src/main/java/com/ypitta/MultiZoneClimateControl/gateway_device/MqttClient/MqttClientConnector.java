@@ -83,7 +83,7 @@ public class MqttClientConnector implements MqttCallback{
 		 * this method can be used to connect the Mqtt client to the server
 		 */
 		try {
-			LOGGER.info("Connecting to MQTT broker.......");
+			LOGGER.info("\tConnecting to MQTT broker.......");
 			MqttConnectOptions options = new MqttConnectOptions();
 			options.setCleanSession(true);
 			this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
@@ -100,7 +100,7 @@ public class MqttClientConnector implements MqttCallback{
 	public void ConnectMqttClientSetCallBack(MqttCallback callback) {
 		
 		try {
-			LOGGER.info("Connecting to MQTT broker.......");
+			LOGGER.info("\tConnecting to MQTT broker.......");
 			MqttConnectOptions options = new MqttConnectOptions();
 			options.setKeepAliveInterval(15);
 			options.setConnectionTimeout(30);
@@ -180,7 +180,7 @@ public class MqttClientConnector implements MqttCallback{
 		 */
 		this.qos = qos;
 		try {
-			LOGGER.info("\nSubscribing to MQTT topic :" + topic);
+			LOGGER.info("\tSubscribing to MQTT topic :" + topic);
 			this.client.subscribe(topic, this.qos);
 			
 		} catch (MqttException e) {

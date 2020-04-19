@@ -52,13 +52,13 @@ public class AWSIoTMessageImpl extends AWSIotMessage{
 	@Override
 	public void onSuccess() {
 		// TODO Auto-generated method stub
-		LOGGER.info("\nSuccessfully published to AWS mqtt on topic..."+ getTopic());
+		LOGGER.info("Successfully published to AWS mqtt on topic..."+ getTopic());
 	}
 
 	@Override
 	public void onFailure() {
 		// TODO Auto-generated method stub
-		LOGGER.info("\nSuccessfully published to AWS mqtt on topic..."+ getTopic() + "\nerror message: "+ getErrorMessage());
+		LOGGER.info("Failed to published to AWS mqtt on topic..."+ getTopic() + "\terror message: "+ getErrorMessage());
 	}
 
 	@Override
