@@ -23,7 +23,7 @@ class PersistenceUtil(Thread):
         This method writes actuator data to the databse
         '''
         logging.info('writing actuator data')
-        r = redis.Redis(host='localhost', port=6397)
+        r = redis.Redis(host='localhost', port=6379)
         r.set(actuator_data.timestamp ,actuator_data)
     
     def writeSensorData(self, sensor_data):
@@ -31,7 +31,7 @@ class PersistenceUtil(Thread):
         This method writes sensor data to the databse
         '''
         logging.info('writing sensor data')
-        r = redis.Redis(host='localhost', port=6397)
+        r = redis.Redis(host='localhost', port=6379)
         r.set(sensor_data.timeStamp, sensor_data)
     
     def run(self):
