@@ -55,7 +55,9 @@ class DataUtil():
         data = json.loads(json_data)
         actuator_data.name = data['name']
         actuator_data.command = data['command']
-        actuator_data.curValue = data['curValue']
+        actuator_data.timeStamp = data['timestamp']
+        actuator_data.zoneId = data['zoneId']
+        actuator_data.curValue = data['reportedTemp']
         return actuator_data
     
     def JsonFromPerformanceData(self,data):

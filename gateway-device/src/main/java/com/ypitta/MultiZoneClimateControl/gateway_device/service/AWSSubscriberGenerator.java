@@ -44,6 +44,7 @@ public class AWSSubscriberGenerator {
 		
 		this.pub_constrained = new MqttClientConnector(MqttAsyncClient.generateClientId(), this.util.getValue("mqtt.cloud", "host"));
 		this.pub_constrained.connectMqttClient();
+		
 		String topic_pub = "action/gateway/"+this.zoneId;
 		this.endpoint = this.util.getValue("aws.cloud", "endpoint");
 		this.certificateFile = this.util.getValue("aws.cloud", "certificateFile");

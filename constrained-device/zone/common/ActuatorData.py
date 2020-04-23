@@ -11,6 +11,7 @@ class ActuatorData():
     command = 'null'
     timeStamp = 'none'
     name = 'not set'
+    zoneId= ''
     curValue = 0
     avgValue = 0
     minValue = 0

@@ -59,6 +59,11 @@ public class DataUtil {
 		return this.conv.fromJson(data, PerformanceData.class);
 	}
 	
+	public UbidotsDataReceived toUbidotsReceivedFromJson(String data) {
+		
+		return this.conv.fromJson(data, UbidotsDataReceived.class);
+	}
+	
 	public class UbidotsData{
 		
 		private String timestamp;

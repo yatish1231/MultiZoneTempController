@@ -11,6 +11,9 @@ from zone.util.DataUtil import DataUtil
 from time import sleep
 from zone.adaptors.MultiActuatorAdaptor import MultiActuatorAdaptor 
 import logging
+import traceback
+from multiprocessing.connection import Client
+from zone.adaptors.PersistenceUtil import PersistenceUtil
 class MqttClientConnector(Thread):
     '''
     This class can be used to create an instance of Mqtt Client and make Publish and Subscriber requests.
@@ -23,6 +26,7 @@ class MqttClientConnector(Thread):
         self.task = TempSensorEmulatorTask()
         self.util = DataUtil()
         self.sen_Data = SensorData()
+        self.redis_instance = PersistenceUtil()
         pass
     
     def connect(self, broker, port):
@@ -66,11 +70,17 @@ class MqttClientConnector(Thread):
     
     
     def on_message(self,client, userdata, message):
-        logging.info('Actuator data recieved')
-        act_data_json = str(message.payload.decode('utf-8'))
-        act_data = self.util.ActuatorDataFromJson(act_data_json)
-        MultiActuatorAdaptor().updateActuator(act_data)
-        logging.info('Actuator updated\n')
+        try:
+            logging.info('Actuator data recieved for: '+ message.topic)
+            act_data_json = str(message.payload.decode('utf-8'))
+            act_data = self.util.ActuatorDataFromJson(act_data_json)
+            MultiActuatorAdaptor().updateActuator(act_data)
+            self.redis_instance.writeActuatorData(act_data)
+            logging.info('Actuator updated\n')
+        except Exception:
+            logging.info(traceback.print_exc())
+            
+        
         
     def on_subscribe(self,client, userdata, mid, granted_qos):
         logging.info('subscribed')

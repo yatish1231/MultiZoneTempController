@@ -16,12 +16,13 @@ import com.ypitta.MultiZoneClimateControl.gateway_device.common.SensorData;
 import com.ypitta.MultiZoneClimateControl.gateway_device.common.DataUtil;
 import com.ypitta.MultiZoneClimateControl.gateway_device.common.CertManagementUtil;
 
-public class MqttClientConnector implements MqttCallback{
+public class MqttClientConnector implements MqttCallback {
 	/*
-	 * This class can be used to create an Mqtt client instance. The constructor takes clientId and name of the server as parameters. 
+	 * This class can be used to create an Mqtt client instance. The constructor
+	 * takes clientId and name of the server as parameters.
 	 */
 	private int qos = 2;
-	private MqttClient client ;
+	private MqttClient client;
 	private String id;
 	private String pass;
 	private String broker;
@@ -30,14 +31,14 @@ public class MqttClientConnector implements MqttCallback{
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private MqttMessage rcvMsg;
 	private boolean isConn;
-	
+
 	public MqttClientConnector(String id, String broker) {
 		super();
 		this.id = id;
 		this.broker = broker;
-		
+
 	}
-	
+
 	public MqttClientConnector(String id, String broker, String pass, String filename) {
 		this.ssl = true;
 		this.id = id;
@@ -45,6 +46,7 @@ public class MqttClientConnector implements MqttCallback{
 		this.filename = filename;
 		this.pass = pass;
 	}
+
 	public int getQos() {
 		return qos;
 	}
@@ -77,7 +79,6 @@ public class MqttClientConnector implements MqttCallback{
 		this.broker = broker;
 	}
 
-	
 	public void connectMqttClient() {
 		/*
 		 * this method can be used to connect the Mqtt client to the server
@@ -89,91 +90,86 @@ public class MqttClientConnector implements MqttCallback{
 			this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
 			this.client.setCallback(this);
 			this.client.connect(options);
-			
+
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void ConnectMqttClientSetCallBack(MqttCallback callback) {
-		
+
 		try {
 			LOGGER.info("\tConnecting to MQTT broker.......");
 			MqttConnectOptions options = new MqttConnectOptions();
-			options.setKeepAliveInterval(15);
-			options.setConnectionTimeout(30);
-//			options.setAutomaticReconnect(true);
-			options.setCleanSession(true);
+			options.setKeepAliveInterval(120);
+			options.setConnectionTimeout(60);
+			options.setAutomaticReconnect(true);
+			options.setCleanSession(false);
 			this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
 			this.client.setCallback(callback);
 			this.client.connect(options);
-			
+
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void connectMqttClientOverSSL() {
-		if(this.ssl) {
-		try {
-			SSLSocketFactory fact =  CertManagementUtil.getInstance().loadCertificate(this.filename);
-			MqttConnectOptions options = new MqttConnectOptions();
-			options.setUserName(this.pass);
-			options.setSocketFactory(fact);
-			options.setCleanSession(true);
-			this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
-			this.client.setCallback(this);
-			this.client.connect(options);
-			this.isConn = this.client.isConnected();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+		if (this.ssl) {
+			try {
+				SSLSocketFactory fact = CertManagementUtil.getInstance().loadCertificate(this.filename);
+				MqttConnectOptions options = new MqttConnectOptions();
+				options.setUserName(this.pass);
+				options.setSocketFactory(fact);
+				options.setCleanSession(true);
+				this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
+				this.client.setCallback(this);
+				this.client.connect(options);
+				this.isConn = this.client.isConnected();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			LOGGER.info("SSL flag false");
 		}
 	}
-	
-	
+
 	public void ConnectMqttClientOverSSLSetCallBack(MqttCallback callback) {
-		
-		if(this.ssl) {
-		try {
-			SSLSocketFactory fact =  CertManagementUtil.getInstance().loadCertificate(this.filename);
-			MqttConnectOptions options = new MqttConnectOptions();
-			options.setUserName(this.pass);
-			options.setSocketFactory(fact);
-			options.setCleanSession(true);
-			this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
-			this.client.setCallback(callback);
-			this.client.connect(options);
-			this.isConn = this.client.isConnected();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+
+		if (this.ssl) {
+			try {
+				LOGGER.info("Connect MQTT client setting callback: " + callback.getClass());
+				SSLSocketFactory fact = CertManagementUtil.getInstance().loadCertificate(this.filename);
+				MqttConnectOptions options = new MqttConnectOptions();
+				options.setUserName(this.pass);
+				options.setSocketFactory(fact);
+				options.setCleanSession(true);
+				options.setAutomaticReconnect(true);
+				this.client = new MqttClient(this.broker, this.id, new MemoryPersistence());
+				this.client.setCallback(callback);
+				this.client.connect(options);
+				this.isConn = this.client.isConnected();
+				if(this.client.isConnected()) {
+					LOGGER.info("MQTT client is connected client id: "+this.client.getClientId());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			LOGGER.info("SSL flag false");
 		}
 	}
-	
 
 	public boolean isConn() {
 		return isConn;
 	}
-	
-	
+
 	public void setConn(boolean isConn) {
 		this.isConn = isConn;
 	}
-	
-	
+
 	public void subscribe(String topic, int qos) {
 		/*
 		 * this method can be used to subscribe the Mqtt client to subscribe to topic
@@ -181,15 +177,20 @@ public class MqttClientConnector implements MqttCallback{
 		this.qos = qos;
 		try {
 			LOGGER.info("\tSubscribing to MQTT topic :" + topic);
+			if(this.client.isConnected()) {
+			LOGGER.info("Client is connected...subscribing");
 			this.client.subscribe(topic, this.qos);
-			
+			}
+			else {
+				LOGGER.info("Client is not connected, cannot subscriber to topic: "+topic);
+			}
+
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void connectionLost(Throwable cause) {
 		// TODO Auto-generated method stub
 		cause.printStackTrace();
@@ -202,18 +203,18 @@ public class MqttClientConnector implements MqttCallback{
 	public void setRcvMsg(MqttMessage rcvMsg) {
 		this.rcvMsg = rcvMsg;
 	}
-	
+
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		/*
-		 * This method is handles the arrived message. It is a blocking functions. It is implemented form the 
-		 * MqttCallBack interface
+		 * This method is handles the arrived message. It is a blocking functions. It is
+		 * implemented form the MqttCallBack interface
 		 */
 		// TODO Auto-generated method stub
 		System.out.println(this.client.getClientId());
 		this.setRcvMsg(message);
 		String msg = new String(message.getPayload());
 		System.out.println("-------------------------------------------------------------------------------");
-		LOGGER.info("\nRecieved message "+ msg);
+		LOGGER.info("\nRecieved message " + msg);
 		DataUtil util = new DataUtil();
 //		SensorData data = util.toSensorDataFromJsonFile(msg);
 //		String json = util.JsonFromSensorData(data);
@@ -223,7 +224,7 @@ public class MqttClientConnector implements MqttCallback{
 
 	public void deliveryComplete(IMqttDeliveryToken token) {
 		LOGGER.info("Message delivered");
-		
+
 	}
-	
+
 }

@@ -1,6 +1,8 @@
 package com.ypitta.MultiZoneClimateControl.gateway_device.callBack;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
@@ -53,7 +55,10 @@ public class AWSTopicCallBack extends AWSIotTopic{
 		ActuatorData new_data = new ActuatorData();
 		new_data.setCommand(data.getAction());
 		new_data.setName(data.getMode());
-		new_data.setCurValue(10.0);
+		LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(data.getTimestamp()), ZoneId.systemDefault());
+		new_data.setTimestamp(date);
+		new_data.setZoneId(data.getZoneId());
+		new_data.setReportedTemp(data.getReportedTemp());
 		String msg = this.util.JsonFromActuatorData(new_data);
 		
 		//sending actuation to constrained device
