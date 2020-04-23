@@ -24,7 +24,7 @@ class PersistenceUtil(Thread):
         '''
         logging.info('writing actuator data')
         r = redis.Redis(host='localhost', port=6379)
-        r.set(actuator_data.timestamp ,actuator_data)
+        r.set(actuator_data.timestamp , str(actuator_data))
     
     def writeSensorData(self, sensor_data):
         '''
@@ -32,7 +32,7 @@ class PersistenceUtil(Thread):
         '''
         logging.info('writing sensor data')
         r = redis.Redis(host='localhost', port=6379)
-        r.set(sensor_data.timeStamp, sensor_data)
+        r.set(sensor_data.timeStamp, str(sensor_data))
     
     def run(self):
         pass
