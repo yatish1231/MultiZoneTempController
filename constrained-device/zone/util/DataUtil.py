@@ -7,6 +7,8 @@ import json
 
 from zone.common.ActuatorData import ActuatorData
 from zone.common.SensorData import SensorData
+import traceback
+import logging
 class DataUtil():
     '''
     This class is responsible for handling the conversion of SensorData and ActuatorData object to and from JSON.
@@ -51,14 +53,17 @@ class DataUtil():
         '''
         Converts to ActuatorData object from JSON
         '''
-        actuator_data = ActuatorData()
-        data = json.loads(json_data)
-        actuator_data.name = data['name']
-        actuator_data.command = data['command']
-        actuator_data.timeStamp = data['timestamp']
-        actuator_data.zoneId = data['zoneId']
-        actuator_data.curValue = data['reportedTemp']
-        return actuator_data
+        try:    
+            actuator_data = ActuatorData()
+            data = json.loads(json_data)
+            actuator_data.name = data['name']
+            actuator_data.command = data['command']
+            actuator_data.timeStamp = data['timestamp']
+            actuator_data.zoneId = data['zoneId']
+            actuator_data.curValue = data['reportedTemp']
+            return actuator_data
+        except Exception:
+            logging.info(traceback.print_exc())
     
     def JsonFromPerformanceData(self,data):
         x= vars(data)

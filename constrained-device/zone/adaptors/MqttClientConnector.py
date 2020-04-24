@@ -26,7 +26,7 @@ class MqttClientConnector(Thread):
         self.task = TempSensorEmulatorTask()
         self.util = DataUtil()
         self.sen_Data = SensorData()
-        self.redis_instance = PersistenceUtil()
+        #self.redis_instance = PersistenceUtil()
         pass
     
     def connect(self, broker, port):
@@ -75,7 +75,7 @@ class MqttClientConnector(Thread):
             act_data_json = str(message.payload.decode('utf-8'))
             act_data = self.util.ActuatorDataFromJson(act_data_json)
             MultiActuatorAdaptor().updateActuator(act_data)
-            self.redis_instance.writeActuatorData(act_data)
+            #self.redis_instance.writeActuatorData(act_data)
             logging.info('Actuator updated\n')
         except Exception:
             logging.info(traceback.print_exc())

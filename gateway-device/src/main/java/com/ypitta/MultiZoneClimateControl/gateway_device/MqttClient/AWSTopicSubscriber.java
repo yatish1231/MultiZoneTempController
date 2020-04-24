@@ -38,5 +38,22 @@ public class AWSTopicSubscriber implements Runnable{
 		this.subscribeToAWSTopic();
 	}
 
+	public AWSIoTMqttClientSecure getSecureClient() {
+		return secureClient;
+	}
+
+	public void setSecureClient(AWSIoTMqttClientSecure secureClient) {
+		this.secureClient = secureClient;
+	}
+
+	public AWSTopicCallBack getTopic() {
+		return topic;
+	}
+
+	public void setTopic(AWSTopicCallBack topic) {
+		this.topic = topic;
+	}
+	
+	
 	
 }

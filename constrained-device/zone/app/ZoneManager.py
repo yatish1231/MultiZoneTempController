@@ -19,9 +19,9 @@ if __name__ == '__main__':
     
     zone4.startReading()
     zone4.subscribeToActuatorData()
-    
+     
     zone5.startReading()
     zone5.subscribeToActuatorData()
-   
+    
     zone6.startReading()
     zone6.subscribeToActuatorData()

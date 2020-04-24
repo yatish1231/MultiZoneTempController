@@ -41,4 +41,30 @@ public class MqttClientSubscriber implements Runnable {
 		// TODO Auto-generated method stub
 		this.subsribeToTopic(this.topic, this.qos);
 	}
+
+	public MqttClient getConnectedClient() {
+		return connectedClient;
+	}
+
+	public void setConnectedClient(MqttClient connectedClient) {
+		this.connectedClient = connectedClient;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public int getQos() {
+		return qos;
+	}
+
+	public void setQos(int qos) {
+		this.qos = qos;
+	}
+	
+	
 }

@@ -40,7 +40,7 @@ class ZoneInitializer():
         self.mqtt_port = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_PORT)
         self.mqtt_qos = self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)
         self.perfAdaptor = SystemPerformanceAdaptor(10, True)
-        self.redis_instance = PersistenceUtil()
+        #self.redis_instance = PersistenceUtil()
         
     def initialize(self):
         '''
@@ -63,7 +63,7 @@ class ZoneInitializer():
         while(True):
             ran = self.task.randomValue()
             self.sen_Data.addValue(ran)
-            self.redis_instance.writeSensorData(self.sen_Data)
+            #self.redis_instance.writeSensorData(self.sen_Data)
             val = self.util.JsonFromSensorData(self.sen_Data)
             self.publisher.publish_message('data/constrained/' + self.zoneid, val, int(self.config_util.getValue(ConfigConst.MQTT_CONF, ConfigConst.MQTT_QOS)))
             logging.info('published message - zone: ' + self.zoneid + ' Current temp: ' + str(ran))
